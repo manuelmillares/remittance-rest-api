@@ -36,3 +36,26 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+
+class Remittance(models.Model):
+    """Remittance model"""
+    client_name = models.CharField(max_length=255)
+    client_email = models.EmailField(max_length=255)
+    recipients_name = models.CharField(max_length=255)
+    delivery_address = models.TextField()
+    recipients_phone = models.CharField(max_length=11)
+    recipients_id = models.CharField(max_length=11)
+    amount = models.DecimalField(max_digits=8, decimal_places=2)
+    STATUSES = (
+        ('i', 'Initiated'),
+        ('a', 'Assigned'),
+        ('d', 'Delivered'),
+        ('c', 'Cancelled'),
+    )
+    status = models.CharField(choices=STATUSES, default='i', max_length=10)
+    initialization_date = models.DateTimeField(auto_now_add=True)
+    assignment_date = models.DateTimeField(default=None, blank=True)
+    delivery_date = models.DateTimeField(default=None, blank=True)
+    distributor = models.ForeignKey(
+        'User', on_delete=models.PROTECT, default=None, blank=True)
