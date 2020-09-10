@@ -55,7 +55,7 @@ class Remittance(models.Model):
     )
     status = models.CharField(choices=STATUSES, default='i', max_length=10)
     initialization_date = models.DateTimeField(auto_now_add=True)
-    assignment_date = models.DateTimeField(default=None, blank=True)
-    delivery_date = models.DateTimeField(default=None, blank=True)
+    assignment_date = models.DateTimeField(default=None, null=True, blank=True)
+    delivery_date = models.DateTimeField(default=None, null=True, blank=True)
     distributor = models.ForeignKey(
-        'User', on_delete=models.PROTECT, default=None, blank=True)
+        'User', on_delete=models.PROTECT, default=None, null=True, blank=True)

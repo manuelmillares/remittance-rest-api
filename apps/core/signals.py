@@ -7,7 +7,10 @@ import requests
 @receiver(post_save, sender=models.Remittance)
 def send_telegram_message(sender, instance, created, **kwargs):
     if created:
-        bot_message = 'Nueva Remesa Creada'
+        bot_message = """Nueva Remesa Creada
+\   \   id: {}
+amount: {}""".format(
+            instance.id, instance.amount)
         bot_token = '1162727727:AAGCUBJ_yE5CegDYOHeczxB7M11o_aCJz0A'
         bot_chatID = '645960852'
         send_text = 'https://api.telegram.org/bot' + bot_token + \
