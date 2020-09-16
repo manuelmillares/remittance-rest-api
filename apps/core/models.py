@@ -32,6 +32,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    ROLE_CHOICES = (
+        (1, 'admin'),
+        (2, 'supervisor'),
+        (3, 'distributor'),
+    )
+    role = models.PositiveSmallIntegerField(
+        choices=ROLE_CHOICES, default='3')
 
     objects = UserManager()
 
