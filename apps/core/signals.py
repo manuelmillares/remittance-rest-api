@@ -8,9 +8,13 @@ import requests
 def send_telegram_message(sender, instance, created, **kwargs):
     if created:
         bot_message = """Nueva Remesa Creada
-\   \   id: {}
-amount: {}""".format(
-            instance.id, instance.amount)
+Id: {}
+Monto: {}
+Nombre del Cliente: {}
+Nombre del Destinatario: {}
+Teléfono del Destinatario: {}
+""".format(
+            instance.id, instance.amount, instance.client_name, instance.recipients_name, instance.recipients_phone)
         bot_token = '1162727727:AAGCUBJ_yE5CegDYOHeczxB7M11o_aCJz0A'
         bot_chatID = '645960852'
         send_text = 'https://api.telegram.org/bot' + bot_token + \
